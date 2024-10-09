@@ -27,9 +27,8 @@
           alt="pokemon--v1"
         />
       </button>
-    </aside>
 
-    <section v-show="showSearchBar" class="search-results">
+      <section v-show="showSearchBar" class="search-results">
       <input
         v-model="searchTerm"
         placeholder="Buscar Pokémon..."
@@ -38,6 +37,11 @@
       <button @click="handleSearch" aria-label="Botón para iniciar la búsqueda">
         Buscar
       </button>
+      </section>
+    </aside>
+
+   
+
 
       <section
         v-if="pokemonFound"
@@ -61,7 +65,7 @@
         Cargando...
       </section>
     </section>
-  </section>
+    
 </template>
 <script setup>
 import { ref } from "vue";
@@ -120,8 +124,10 @@ button {
   margin-bottom: 10px;
 }
 
-aside{
 
+
+h1{
+  font-size: 2em;
 }
 
 template{
@@ -138,10 +144,17 @@ template{
   background-color: rgb(182, 182, 182);
 }
 
+.search-bar__toggle{
+  margin: 1em;
+}
 
 .search-bar {
   background-color: rgba(226, 96, 9, 0.575);
   flex-direction: column;
   padding: 3em;
+}
+
+.search-results{
+  margin: 2em;
 }
 </style>
