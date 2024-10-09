@@ -1,0 +1,35 @@
+@import './base.css';
+
+
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header__section--buttons{
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+
+}
+
+.header__button--search{
+  width: 14.5rem;  
+  background: var(--buttons);
+  text-shadow: none;
+  border-radius: 0.8em;
+  color: gray;
+    
+}
+
+.header__button--icon{
+  border-radius: 5em;
+  display: flex;
+  background: var(--buttons);
+  justify-content: center;
+  padding: 0.5em;
+  
+}
+
