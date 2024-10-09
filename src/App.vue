@@ -1,6 +1,6 @@
 <template>
   <section class="app">
-    <section class="search-bar">
+    <aside class="search-bar">
       <h1 class="search-bar__title" aria-label="Titúlo de la barra de búsqueda">
         Guía de Búsqueda de Pokémon
       </h1>
@@ -27,7 +27,7 @@
           alt="pokemon--v1"
         />
       </button>
-    </section>
+    </aside>
 
     <section v-show="showSearchBar" class="search-results">
       <input
@@ -120,16 +120,28 @@ button {
   margin-bottom: 10px;
 }
 
-.app{
-  display: flex;
-  background-color: rgb(177, 177, 177);
- 
+aside{
+
 }
+
+template{
+  margin: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh; 
+  background-color: rgb(182, 182, 182);
+}
+
 
 .search-bar {
   background-color: rgba(226, 96, 9, 0.575);
   flex-direction: column;
-  margin: 2em;
   padding: 3em;
 }
 </style>
