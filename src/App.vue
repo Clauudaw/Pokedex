@@ -1,45 +1,68 @@
 <template>
-  <section id="app">
-    <button @click="toggleSearchBar">Search Pokemon</button>
-
-    <section v-show="showSearchBar">
-      <input v-model="searchTerm" placeholder="Buscar Pokémon..." />
-      <button @click="handleSearch">Buscar</button>
+  <section class="app">
+    <section class="search-bar">
+      <h1 class="search-bar__title" aria-label="Titúlo de la barra de búsqueda">
+        Guía de Búsqueda de Pokémon
+      </h1>
+      <button
+        class="search-bar__toggle"
+        @click="toggleSearchBar"
+        aria-label="Botón para mostrar la barra de búsqueda de Pokémon"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="30px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#5f6368"
+        >
+          <path
+            d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+          />
+        </svg>
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/ios-glyphs/30/pokemon--v1.png"
+          alt="pokemon--v1"
+        />
+      </button>
     </section>
 
-    <section v-if="pokemonFound">
-      <img :src="pokemonImage" alt="Pokémon imagen" />
-      <p><strong>Name:</strong> {{ pokemon.name }}</p>
-      <p><strong>Type:</strong> {{ pokemon.type }}</p>
-      <p><strong>Description:</strong> {{ pokemon.description }}</p>
-    </section>
+    <section v-show="showSearchBar" class="search-results">
+      <input
+        v-model="searchTerm"
+        placeholder="Buscar Pokémon..."
+        aria-label="Campo para ingresar el nombre del Pokémon a buscar"
+      />
+      <button @click="handleSearch" aria-label="Botón para iniciar la búsqueda">
+        Buscar
+      </button>
 
-    <section v-show="loading">Cargando...</section>
+      <section
+        v-if="pokemonFound"
+        class="pokemon-info"
+        role="region"
+        aria-labelledby="pokemon-info-title"
+      >
+        <h3 id="pokemon-info-title">Información del Pokémon</h3>
+        <img :src="pokemonImage" alt="Imagen del Pokémon" />
+        <p><strong>Nombre:</strong> {{ pokemon.name }}</p>
+        <p><strong>Tipo:</strong> {{ pokemon.type }}</p>
+        <p><strong>Descripción:</strong> {{ pokemon.description }}</p>
+      </section>
+
+      <section
+        v-show="loading"
+        class="loading-state"
+        role="status"
+        aria-live="polite"
+      >
+        Cargando...
+      </section>
+    </section>
   </section>
 </template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script setup>
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
@@ -95,5 +118,18 @@ function updatePokemonData() {
 <style scoped>
 button {
   margin-bottom: 10px;
+}
+
+.app{
+  display: flex;
+  background-color: rgb(177, 177, 177);
+ 
+}
+
+.search-bar {
+  background-color: rgba(226, 96, 9, 0.575);
+  flex-direction: column;
+  margin: 2em;
+  padding: 3em;
 }
 </style>
