@@ -53,7 +53,7 @@
 
     <section v-if="pokemonFound" class="pokemon__section">
       <h2>{{ pokemonName }}</h2>
-      <p>Tipo: {{ pokemonType }}</p>
+      <p class="p__type">{{ pokemonType }}</p>
       <img
         :src="pokemonImage"
         class="pokemon__section--img"
@@ -67,7 +67,7 @@
         Items relacionados:
         {{ pokemonItems.length > 0 ? pokemonItems.join(", ") : "Ninguno" }}
       </p>
-      <p>Pokedex Entries: {{ pokemonPokedexEntries.join(". ") }}</p>
+      <p>Pokedex Entries: {{ pokemonPokedexEntries.join('\n') }}</p>
       <p>Cadena de evolución: {{ pokemonEvolutionChain }}</p>
       <p><strong>Descripción:</strong> {{ pokemonDescription }}</p>
     </section>
