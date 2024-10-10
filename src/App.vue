@@ -31,6 +31,7 @@
           v-model="searchTerm"
           placeholder="Buscar Pokémon..."
           aria-label="Campo para ingresar el nombre del Pokémon a buscar"
+          @keyup.enter="handleSearch"
         />
         <button
           @click="handleSearch"
