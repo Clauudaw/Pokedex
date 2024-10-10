@@ -21,8 +21,6 @@
           />
         </svg>
         <img
-          width="30"
-          height="30"
           src="https://img.icons8.com/ios-glyphs/30/pokemon--v1.png"
           alt="pokemon--v1"
         />
@@ -34,27 +32,42 @@
           placeholder="Buscar Pokémon..."
           aria-label="Campo para ingresar el nombre del Pokémon a buscar"
         />
-        <button @click="handleSearch" aria-label="Botón para iniciar la búsqueda">
+        <button
+          @click="handleSearch"
+          aria-label="Botón para iniciar la búsqueda"
+        >
           Buscar
         </button>
       </section>
     </aside>
 
-    <section v-show="loading" class="loading-state" role="status" aria-live="polite">
+    <section
+      v-show="loading"
+      class="loading-state"
+      role="status"
+      aria-live="polite"
+    >
       Cargando...
     </section>
 
     <section v-if="pokemonFound" class="pokemon__section">
       <h2>{{ pokemonName }}</h2>
       <p>Tipo: {{ pokemonType }}</p>
-      <img :src="pokemonImage" class="pokemon__section--img" alt="{{ pokemonName }}">
-      <p>Movimientos: {{ pokemonMoves.join(", ") }}</p> <!-- Mostrar movimientos como lista -->
+      <img
+        :src="pokemonImage"
+        class="pokemon__section--img"
+        alt="{{ pokemonName }}"
+      />
+      <p>Movimientos: {{ pokemonMoves.join(", ") }}</p>
       <p>Experiencia Base: {{ pokemonBaseExperience }}</p>
-      <p>Formas: {{ pokemonForms.join(", ") }}</p> <!-- Mostrar formas -->
-      <p>Versiones del juego: {{ pokemonGameVersions.join(", ") }}</p> <!-- Mostrar versiones del juego -->
-      <p>Items relacionados: {{ pokemonItems.length > 0 ? pokemonItems.join(", ") : "Ninguno" }}</p> <!-- Mostrar ítems relacionados (placeholder por ahora) -->
-      <p>Pokedex Entries: {{ pokemonPokedexEntries.join(". ") }}</p> <!-- Mostrar entradas de la Pokédex -->
-      <p>Cadena de evolución: {{ pokemonEvolutionChain }}</p> <!-- Mostrar la cadena de evolución -->
+      <p>Formas: {{ pokemonForms.join(", ") }}</p>
+      <p>Versiones del juego: {{ pokemonGameVersions.join(", ") }}</p>
+      <p>
+        Items relacionados:
+        {{ pokemonItems.length > 0 ? pokemonItems.join(", ") : "Ninguno" }}
+      </p>
+      <p>Pokedex Entries: {{ pokemonPokedexEntries.join(". ") }}</p>
+      <p>Cadena de evolución: {{ pokemonEvolutionChain }}</p>
       <p><strong>Descripción:</strong> {{ pokemonDescription }}</p>
     </section>
 
@@ -64,153 +77,60 @@
   </section>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script>
+import { usePokemon } from "./composables/usePokemon";
 
-// Definir las variables reactivas
-const showSearchBar = ref(false);
-const searchTerm = ref("");
-const loading = ref(false);
-const pokemonFound = ref(false);
+export default {
+  setup() {
+    const {
+      showSearchBar,
+      searchTerm,
+      loading,
+      pokemonFound,
+      pokemonImage,
+      pokemonName,
+      pokemonType,
+      pokemonDescription,
+      pokemonBaseExperience,
+      pokemonForms,
+      pokemonGameVersions,
+      pokemonMoves,
+      pokemonItems,
+      pokemonPokedexEntries,
+      pokemonEvolutionChain,
+      toggleSearchBar,
+      handleSearch,
+    } = usePokemon();
 
-const pokemonImage = ref("");
-const pokemonName = ref("");
-const pokemonType = ref("");
-const pokemonDescription = ref("");
-const pokemonBaseExperience = ref("");
-const pokemonForms = ref([]);
-const pokemonGameVersions = ref([]);
-const pokemonMoves = ref([]);
-const pokemonItems = ref([]);
-const pokemonPokedexEntries = ref([]);
-const pokemonEvolutionChain = ref("");
-
-function toggleSearchBar() {
-  showSearchBar.value = !showSearchBar.value;
-}
-
-async function handleSearch() {
-  if (!showSearchBar.value) {
-    console.log("No se puede buscar mientras la barra de búsqueda está oculta");
-    return;
-  }
-
-  loading.value = true;
-  setTimeout(async () => {
-    loading.value = false;
-    await fetchPokemonData(searchTerm.value.toLowerCase());
-    searchTerm.value = "";
-  }, 1000);
-}
-
-// Función para obtener los datos del Pokémon
-async function fetchPokemonData(name) {
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    
-    if (!response.ok) {
-      throw new Error('Pokémon no encontrado');
-    }
-
-    const pokemonData = await response.json();
-    pokemonFound.value = true;
-
-    pokemonImage.value = pokemonData.sprites.front_default;
-    pokemonName.value = capitalizeFirstLetter(pokemonData.name);
-    pokemonType.value = pokemonData.types[0].type.name;
-    pokemonDescription.value = pokemonData.forms[0].name;
-    pokemonBaseExperience.value = pokemonData.base_experience;
-    pokemonForms.value = pokemonData.forms.map(form => form.name);
-    pokemonGameVersions.value = pokemonData.game_indices.map(game => game.version.name);
-    pokemonMoves.value = pokemonData.moves.map(move => move.move.name).slice(0, 5);
-    pokemonItems.value = pokemonData.held_items.map(item => item.item.name);
-
-
-    // Solicitud para especies y evolución
-    await fetchPokemonSpecies(name);
-  } catch (error) {
-    console.error('Error al obtener datos del Pokémon:', error);
-    pokemonFound.value = false;
-  }
-}
-
-// Función para obtener la especie del Pokémon, incluyendo la cadena de evolución y entradas de la Pokédex
-async function fetchPokemonSpecies(name) {
-  const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
-  const speciesData = await speciesResponse.json();
-
-  // Entradas de la Pokédex en español
-  pokemonPokedexEntries.value = speciesData.flavor_text_entries
-    .filter(entry => entry.language.name === "es")
-    .map(entry => entry.flavor_text);
-
-  // Obtener la cadena de evolución
-  const evolutionChainUrl = speciesData.evolution_chain.url;
-  const evolutionResponse = await fetch(evolutionChainUrl);
-  const evolutionData = await evolutionResponse.json();
-
-  // Extraer y formatear la cadena de evolución
-  pokemonEvolutionChain.value = extractEvolutionChain(evolutionData.chain);
-}
-
-// Función para extraer la cadena de evolución
-function extractEvolutionChain(chain) {
-  let evolution = capitalizeFirstLetter(chain.species.name);
-  while (chain.evolves_to.length > 0) {
-    chain = chain.evolves_to[0];
-    evolution += ` → ${capitalizeFirstLetter(chain.species.name)}`;
-  }
-  return evolution;
-}
-
-// Función para capitalizar la primera letra de un string
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+    return {
+      showSearchBar,
+      searchTerm,
+      loading,
+      pokemonFound,
+      pokemonImage,
+      pokemonName,
+      pokemonType,
+      pokemonDescription,
+      pokemonBaseExperience,
+      pokemonForms,
+      pokemonGameVersions,
+      pokemonMoves,
+      pokemonItems,
+      pokemonPokedexEntries,
+      pokemonEvolutionChain,
+      toggleSearchBar,
+      handleSearch,
+    };
+  },
+};
 </script>
 
 <style scoped>
-button {
-  margin-bottom: 10px;
-}
-
-h1 {
-  font-size: 2em;
-}
-
-template {
-  margin: 0;
-  width: 100%;
-  padding: 0;
-}
-
-p {
-  color: black;
-}
+@import "./assets/main.css";
+@import "./assets/main.css";
 
 .app {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgb(182, 182, 182);
+  display: flex;
 }
 
-.search-bar__toggle {
-  margin: 1em;
-}
-
-.search-bar {
-  background-color: rgba(226, 96, 9, 0.575);
-  flex-direction: column;
-  padding: 3em;
-}
-
-.search-results {
-  margin: 2em;
-}
-
-.pokemon__section--img {
-  width: 300px;
-}
 </style>
