@@ -39,23 +39,6 @@
       </button>
       </section>
     </aside>
-
-   
-
-
-      <section
-        v-if="pokemonFound"
-        class="pokemon-info"
-        role="region"
-        aria-labelledby="pokemon-info-title"
-      >
-        <h3 id="pokemon-info-title">Información del Pokémon</h3>
-        <img :src="pokemonImage" alt="Imagen del Pokémon" />
-        <p><strong>Nombre:</strong> {{ pokemon.name }}</p>
-        <p><strong>Tipo:</strong> {{ pokemon.type }}</p>
-        <p><strong>Descripción:</strong> {{ pokemon.description }}</p>
-      </section>
-
       <section
         v-show="loading"
         class="loading-state"
@@ -64,6 +47,17 @@
       >
         Cargando...
       </section>
+
+      <div v-if="pokemonFound">
+      <h2>{{ pokemonName }}</h2>
+      <img :src="pokemonImage" alt="{{ pokemonName }}">
+      <p>Tipo: {{ pokemonType }}</p>
+      <p>Descripción: {{ pokemonDescription }}</p>
+    </div>
+
+    <div v-else>
+      No se encontró ningún Pokémon con ese nombre.
+    </div>
     </section>
     
 </template>
@@ -75,7 +69,6 @@ import HelloWorld from "./components/HelloWorld.vue";
 const showSearchBar = ref(false);
 const searchTerm = ref("");
 const loading = ref(false);
-const pokemonFound = ref(false);
 
 function toggleSearchBar() {
   showSearchBar.value = !showSearchBar.value;
@@ -91,18 +84,33 @@ function handleSearch() {
   setTimeout(() => {
     loading.value = false;
 
-    if (searchTerm.value.toLowerCase() === "pikachu".toLowerCase()) {
-      pokemonFound.value = true;
-      pokemonImage.value = "pikachu.jpg";
-      pokemonName.value = "Pikachu";
-      pokemonType.value = "Electric";
-      pokemonDescription.value = "Un pequeño Pokémon eléctrico.";
-    } else {
-      pokemonFound.value = false;
-    }
-
+    fetchPokemonData(searchTerm.value.toLowerCase());
     searchTerm.value = "";
   }, 1000); // Simula una búsqueda de 1 segundo
+}
+
+async function fetchPokemonData(name) {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const pokemonData = await response.json();
+
+    if (!pokemonData) {
+      throw new Error('Pokémon no encontrado');
+    }
+
+    pokemonFound.value = true;
+    pokemonImage.value = pokemonData.sprites.front_default;
+    pokemonName.value = capitalizeFirstLetter(pokemonData.name);
+    pokemonType.value = pokemonData.types[0].type.name;
+    pokemonDescription.value = pokemonData.forms[0].name;
+  } catch (error) {
+    console.error('Error al obtener datos del Pokémon:', error);
+    pokemonFound.value = false;
+  }
+}
+
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 const pokemonImage = ref("");
@@ -117,6 +125,10 @@ function updatePokemonData() {
   pokemonType.value = pokemonType.value;
   pokemonDescription.value = pokemonDescription.value;
 }
+
+// Variables para manejar el estado del Pokémon encontrado
+const pokemonFound = ref(false);
+ 
 </script>
 
 <style scoped>
