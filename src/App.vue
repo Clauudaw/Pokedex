@@ -146,8 +146,8 @@ export default {
 </script>
 
 <style scoped>
-@import "./assets/main.sass";
-@import "./assets/main.sass";
+@import "./assets/main.scss";
+@import "./assets/base.scss";
 
 .app {
   display: flex;
