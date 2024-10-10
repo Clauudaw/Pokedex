@@ -52,11 +52,14 @@
     </section>
 
     <section v-if="pokemonFound" class="pokemon__section">
-      
       <section class="pokemon__section--container">
         <section class="pokemon__section--card">
           <section class="pokemon__section--background">
-            <img :src="pokemonImage" class="pokemon__section--img" alt="{{ pokemonName }}"/>
+            <img
+              :src="pokemonImage"
+              class="pokemon__section--img"
+              alt="{{ pokemonName }}"
+            />
           </section>
           <section class="pokemon__section--content">
             <h2 class="pokemon__section--name">{{ pokemonName }}</h2>
@@ -67,7 +70,9 @@
               <p>Formas: {{ pokemonForms.join(", ") }}</p>
               <p>
                 Items relacionados:
-                {{ pokemonItems.length > 0 ? pokemonItems.join(", ") : "Ninguno" }}
+                {{
+                  pokemonItems.length > 0 ? pokemonItems.join(", ") : "Ninguno"
+                }}
               </p>
               <p>Cadena de evolución: {{ pokemonEvolutionChain }}</p>
             </section>
@@ -77,19 +82,15 @@
       </section>
 
       <section class="pokemon__section--description">
-      <p><strong>Descripción:</strong> {{ pokemonDescription }}</p>
-      <p>Versiones del juego: {{ pokemonGameVersions.join(", ") }}</p>
-      <p>Pokedex Entries: {{ pokemonPokedexEntries.join('\n') }}</p>
-    </section>
-      
+        <p><strong>Descripción:</strong> {{ pokemonDescription }}</p>
+        <p>Versiones del juego: {{ pokemonGameVersions.join(", ") }}</p>
+        <p>Pokedex Entries: {{ pokemonPokedexEntries.join("\n") }}</p>
+      </section>
     </section>
 
     <section v-if="!pokemonFound">
       No se encontró ningún Pokémon con ese nombre.
     </section>
-
-
-
   </section>
 </template>
 
@@ -114,9 +115,9 @@ export default {
       pokemonItems,
       pokemonPokedexEntries,
       pokemonEvolutionChain,
-      pokemonHP, 
-      pokemonAttack, 
-      pokemonDefense, 
+      pokemonHP,
+      pokemonAttack,
+      pokemonDefense,
       toggleSearchBar,
       handleSearch,
     } = usePokemon();
@@ -145,11 +146,10 @@ export default {
 </script>
 
 <style scoped>
-@import "./assets/main.css";
-@import "./assets/main.css";
+@import "./assets/main.sass";
+@import "./assets/main.sass";
 
 .app {
   display: flex;
 }
-
 </style>
