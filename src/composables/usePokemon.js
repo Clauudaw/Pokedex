@@ -17,7 +17,7 @@ export function usePokemon() {
   const pokemonItems = ref([]);
   const pokemonPokedexEntries = ref([]);
   const pokemonEvolutionChain = ref("");
-  const pokemonOfType = ref([]);
+
 
   function toggleSearchBar() {
     showSearchBar.value = !showSearchBar.value;
@@ -56,6 +56,8 @@ export function usePokemon() {
       pokemonMoves.value = pokemonData.moves.map(move => move.move.name).slice(0, 5);
       pokemonItems.value = pokemonData.held_items.map(item => item.item.name);
 
+      
+
       await fetchPokemonSpecies(name);
     } catch (error) {
       console.error('Error al obtener datos del Pokémon:', error);
@@ -69,7 +71,8 @@ export function usePokemon() {
 
     pokemonPokedexEntries.value = speciesData.flavor_text_entries
       .filter(entry => entry.language.name === "es")
-      .map(entry => entry.flavor_text);
+      .map(entry => entry.flavor_text)
+      .slice(0,2);
 
     const evolutionChainUrl = speciesData.evolution_chain.url;
     const evolutionResponse = await fetch(evolutionChainUrl);
@@ -86,7 +89,6 @@ export function usePokemon() {
     }
     return evolution;
   }
-
   
 
   function capitalizeFirstLetter(str) {
