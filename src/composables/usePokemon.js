@@ -17,6 +17,7 @@ export function usePokemon() {
   const pokemonItems = ref([]);
   const pokemonPokedexEntries = ref([]);
   const pokemonEvolutionChain = ref("");
+  const pokemonOfType = ref([]);
 
   function toggleSearchBar() {
     showSearchBar.value = !showSearchBar.value;
@@ -85,6 +86,8 @@ export function usePokemon() {
     }
     return evolution;
   }
+
+  
 
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);

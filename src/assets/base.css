@@ -46,10 +46,12 @@ h2 {
 }
 
 p {
-  color: black;
+  color: rgb(63, 63, 63);
   font-size: 1.1em;
   margin: 0.5em 0;
   padding: 0.5em;
+  text-align: left;
+  font-size: 1.1em;
 }
 
 aside{

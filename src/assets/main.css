@@ -41,10 +41,19 @@
   font-size: 1.5em;
   margin-bottom: 1em;
   text-align: center;
+  color: #ff7300;
 }
 
 .search-bar__toggle {
   margin: 1em;
+  width: 80%;
+  background-color: #ff990079;
+  border-radius: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar__toggle:hover {
+  background-color: #ff9900a1;
 }
 
 .search-results {
@@ -70,7 +79,7 @@
 }
 
 .search-results button:hover {
-  background-color: #ff9900;
+  background-color: #ffbb00;
 }
 
 
@@ -84,17 +93,23 @@
 
 .pokemon__section {
   flex: 3; 
-  background-color: var() ;
+  background-color: #fabf8e;
   padding: 2em;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgb(248, 96, 25);
+  border: 1px solid rgba(255, 81, 0, 0.055);
+  margin:2em;
 }
 
 .pokemon__section--img {
   width: 300px;
   margin: 1em 0;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1em;
 }
 
-
+.p__type{
+  text-align: center;
+  font-size: 1.5em;
+}
 
