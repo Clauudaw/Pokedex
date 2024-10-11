@@ -1,3 +1,13 @@
+.app {
+  display: flex;
+  flex-direction: row; // Diseño horizontal por defecto
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column; // En móvil, los elementos se apilan
+  }
+}
+
 .search-bar {
   background-color: var(--background-search-bar);
   flex: 1;
@@ -54,12 +64,25 @@
       }
     }
   }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5em; // Espacio entre elementos en móvil
+    padding: 1em;
+    order: -1; // Se muestra primero en móvil
+  }
 }
 
 .loading-state {
   text-align: center;
   font-size: 1.5em;
   margin: 2em 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    margin: 1em 0;
+  }
 }
 
 .pokemon__section {
@@ -79,6 +102,11 @@
     width: 31.25rem;
     border-radius: 0.625rem;
     padding: 0.625rem;
+
+    @media (max-width: 768px) {
+      width: 90%; // Ajusta el ancho para pantallas más pequeñas
+      padding: 1em;
+    }
   }
 
   &--background {
@@ -90,6 +118,11 @@
 
   &--img {
     width: 19.75em;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      max-width: 250px; // Limita el tamaño de la imagen en móvil
+    }
   }
 
   &--content {
@@ -97,6 +130,10 @@
     padding: 0.625rem;
     border-bottom-right-radius: 0.625rem;
     border-bottom-left-radius: 0.625rem;
+
+    @media (max-width: 768px) {
+      padding: 0.5em;
+    }
   }
 
   &--name {
@@ -104,6 +141,10 @@
     font-size: 2.1875rem;
     font-weight: lighter;
     padding: 0.625rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 
   &--type {
@@ -132,7 +173,11 @@
   &--description {
     width: 70%;
     margin-top: 2em;
-    background: linear-gradient(to left, rgba(255, 242, 229, 0.438), rgba(248, 158, 24, 0.548));
+    background: linear-gradient(
+      to left,
+      rgba(255, 242, 229, 0.438),
+      rgba(248, 158, 24, 0.548)
+    );
     padding: 2em;
     border-radius: 0.625rem;
 
@@ -140,5 +185,17 @@
       letter-spacing: 0.0625rem;
       color: rgb(51, 51, 51);
     }
+
+    @media (max-width: 768px) {
+      width: 90%;
+      padding: 1em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex: none;
+    width: 100%;
+    margin: 1em 0;
+    padding: 1em;
   }
 }
