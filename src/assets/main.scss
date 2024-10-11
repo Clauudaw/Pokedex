@@ -1,3 +1,5 @@
+@import './base.scss';
+
 .app {
   display: flex;
   flex-direction: row; 
@@ -10,7 +12,6 @@
 }
 
 .search-bar {
-  background-color: var(--background-search-bar);
   flex: 1;
   padding: 2em;
   max-width: 25%;
@@ -207,19 +208,17 @@
   }
 }
 
-
-
-
 .footer {
   background-color: #ffe3d2;
+  flex-direction: column;
   color: #fff;
   text-align: center;
   padding: 1em;
   margin-top: auto;
-  position: block; 
-
+  border-radius: 1em;
   
-
+  
+ 
   &__social {
     display: flex;
     justify-content: center;
