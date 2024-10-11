@@ -49,17 +49,3 @@ aside {
 h1 {
   font-weight: bold;
 }
-
-/*phone*/
-@media (max-width: 768px) {
-  aside {
-    flex-direction: row;
-    height: auto;
-  }
-  h2 {
-    font-size: 2.5em;
-  }
-  p {
-    font-size: 1em;
-  }
-}

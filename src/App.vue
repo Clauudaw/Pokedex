@@ -91,6 +91,31 @@
     <section v-if="!pokemonFound">
       No se encontró ningún Pokémon con ese nombre.
     </section>
+
+     <footer class="footer">
+      <p>&copy; 2024 Guía de Pokémon. Todos los derechos reservados.</p>
+      <section class="footer__social">
+        <a href="https://twitter.com" target="_blank" aria-label="Enlace de acceso a la cuenta de Twitter">
+          <img
+            src="https://img.icons8.com/ios-filled/30/twitter-squared.png"
+            alt="Twitter"
+          />
+        </a>
+        <a href="https://facebook.com" target="_blank" aria-label="Enlace de acceso a la cuenta de Facebook">
+          <img
+            src="https://img.icons8.com/ios-filled/30/facebook-new.png"
+            alt="Facebook"
+          />
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Enlace de acceso a la cuenta de Instagram">
+          <img
+            src="https://img.icons8.com/ios-filled/30/instagram-new.png"
+            alt="Instagram"
+          />
+        </a>
+      </section>
+      <p>Desarrollado por Claudia Rey</p>
+    </footer>
   </section>
 </template>
 
@@ -149,7 +174,4 @@ export default {
 @import "./assets/main.scss";
 @import "./assets/base.scss";
 
-.app {
-  display: flex;
-}
 </style>
