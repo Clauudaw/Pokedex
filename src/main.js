@@ -1,4 +1,4 @@
-
+import { usePokemon } from "./composables/usePokemon";
 
 import { createApp } from 'vue'
 import App from './App.vue'
