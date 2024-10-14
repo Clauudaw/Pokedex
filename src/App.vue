@@ -1,3 +1,53 @@
+<script>
+import { usePokemon } from "./composables/usePokemon";
+
+export default {
+  setup() {
+    const {
+      showSearchBar,
+      searchTerm,
+      loading,
+      pokemonFound,
+      pokemonImage,
+      pokemonName,
+      pokemonType,
+      pokemonDescription,
+      pokemonBaseExperience,
+      pokemonForms,
+      pokemonGameVersions,
+      pokemonMoves,
+      pokemonItems,
+      pokemonPokedexEntries,
+      pokemonEvolutionChain,
+      pokemonHP,
+      pokemonAttack,
+      pokemonDefense,
+      toggleSearchBar,
+      handleSearch,
+    } = usePokemon();
+
+    return {
+      showSearchBar,
+      searchTerm,
+      loading,
+      pokemonFound,
+      pokemonImage,
+      pokemonName,
+      pokemonType,
+      pokemonDescription,
+      pokemonBaseExperience,
+      pokemonForms,
+      pokemonGameVersions,
+      pokemonMoves,
+      pokemonItems,
+      pokemonPokedexEntries,
+      pokemonEvolutionChain,
+      toggleSearchBar,
+      handleSearch,
+    };
+  },
+};
+</script>
 <template>
   <section class="app">
     <aside class="search-bar">
@@ -123,56 +173,7 @@
   </section>
 </template>
 
-<script>
-import { usePokemon } from "./composables/usePokemon";
 
-export default {
-  setup() {
-    const {
-      showSearchBar,
-      searchTerm,
-      loading,
-      pokemonFound,
-      pokemonImage,
-      pokemonName,
-      pokemonType,
-      pokemonDescription,
-      pokemonBaseExperience,
-      pokemonForms,
-      pokemonGameVersions,
-      pokemonMoves,
-      pokemonItems,
-      pokemonPokedexEntries,
-      pokemonEvolutionChain,
-      pokemonHP,
-      pokemonAttack,
-      pokemonDefense,
-      toggleSearchBar,
-      handleSearch,
-    } = usePokemon();
-
-    return {
-      showSearchBar,
-      searchTerm,
-      loading,
-      pokemonFound,
-      pokemonImage,
-      pokemonName,
-      pokemonType,
-      pokemonDescription,
-      pokemonBaseExperience,
-      pokemonForms,
-      pokemonGameVersions,
-      pokemonMoves,
-      pokemonItems,
-      pokemonPokedexEntries,
-      pokemonEvolutionChain,
-      toggleSearchBar,
-      handleSearch,
-    };
-  },
-};
-</script>
 
 <style scoped>
 @import "./assets/main.scss";
