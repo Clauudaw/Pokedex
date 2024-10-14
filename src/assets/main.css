@@ -80,6 +80,7 @@ h1 {
   margin: 0 1em;
   text-align: center;
   color: #ff7300;
+  font-weight: bold;
 }
 
 .search-bar__toggle {

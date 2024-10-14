@@ -1,9 +1,9 @@
 <template>
   <section class="app">
     <aside class="search-bar">
-      <h1 class="search-bar__title" aria-label="Titúlo de la página Pokedex">
+      <h2 class="search-bar__title" aria-label="Titúlo de la página Pokedex">
         Guía de Búsqueda de Pokémon
-      </h1>
+      </h2>
       <button
         class="search-bar__toggle"
         @click="toggleSearchBar"
